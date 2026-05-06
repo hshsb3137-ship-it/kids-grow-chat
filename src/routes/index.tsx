@@ -1,26 +1,35 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Layout } from "@/components/Layout";
+import { Hero } from "@/components/Hero";
+import { CategoryGrid } from "@/components/CategoryGrid";
+import { FeaturedProducts } from "@/components/FeaturedProducts";
+import { About } from "@/components/About";
+import { CoursesSection } from "@/components/Courses";
+import { Gallery } from "@/components/Gallery";
+import { Testimonials } from "@/components/Testimonials";
+import { OfferBanner } from "@/components/OfferBanner";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Infinity Learning Center — Smart Learning for Curious Kids" },
+      { name: "description", content: "Shop colorful flashcards, EVS worksheets, tuition notes, handwriting & brain exercise books. Order via WhatsApp instantly." },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <Layout>
+      <Hero />
+      <CategoryGrid />
+      <FeaturedProducts />
+      <OfferBanner />
+      <About />
+      <CoursesSection />
+      <Gallery />
+      <Testimonials />
+    </Layout>
+  );
 }
