@@ -92,7 +92,7 @@ function ProductPage() {
 
             {product.benefits && (
               <ul className="mt-5 space-y-2">
-                {product.benefits.map((b) => (
+                {product.benefits.map((b: string) => (
                   <li key={b} className="flex items-start gap-2 text-sm">
                     <span className="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-full bg-gradient-primary text-primary-foreground">
                       <Check className="h-3 w-3" />
