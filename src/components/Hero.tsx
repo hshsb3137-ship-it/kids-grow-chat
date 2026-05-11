@@ -29,11 +29,11 @@ export function Hero() {
             ✨ Loved by 5,000+ parents
           </span>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
-            Smart Learning <br />
-            for <span className="text-gradient">Curious Kids</span>
+            Fun Learning <br />
+            for <span className="text-gradient">Smart Kids</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg md:mx-0">
-            Flashcards, Worksheets, Tuition Notes & Brain Exercise Books — designed to make learning fun, colorful and stress-free.
+            Flashcards, EVS Worksheets & Tuition Materials designed to make learning colorful and stress-free.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
             <Link
