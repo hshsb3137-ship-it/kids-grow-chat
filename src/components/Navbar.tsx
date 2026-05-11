@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, ShoppingBag } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/shop", label: "Shop" },
-  { to: "/courses", label: "Courses" },
+  { to: "/shop", label: "Products" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -13,6 +13,8 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { count, openCart } = useCart();
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -26,12 +28,12 @@ export function Navbar() {
         scrolled ? "bg-background/85 backdrop-blur shadow-soft" : "bg-background/40 backdrop-blur-sm"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Link to="/" className="flex items-center gap-2">
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-primary shadow-soft">
             <Sparkles className="h-5 w-5 text-primary-foreground" />
           </span>
-          <span className="font-display text-lg font-bold leading-none sm:text-xl">
+          <span className="font-display text-base font-bold leading-none sm:text-xl">
             Infinity <span className="text-gradient">Learning</span>
           </span>
         </Link>
@@ -49,20 +51,35 @@ export function Navbar() {
           ))}
         </nav>
 
-        <Link
-          to="/shop"
-          className="hidden rounded-full bg-gradient-bubble px-5 py-2.5 text-sm font-bold text-bubble-foreground shadow-soft transition hover:scale-105 md:inline-block"
-        >
-          Shop Now
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={openCart}
+            aria-label="Open cart"
+            className="relative grid h-10 w-10 place-items-center rounded-2xl bg-accent transition hover:bg-primary/20"
+          >
+            <ShoppingBag className="h-5 w-5" />
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-gradient-primary px-1 text-[10px] font-bold text-primary-foreground shadow-soft">
+                {count}
+              </span>
+            )}
+          </button>
 
-        <button
-          aria-label="Menu"
-          onClick={() => setOpen(!open)}
-          className="grid h-10 w-10 place-items-center rounded-2xl bg-accent md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          <Link
+            to="/shop"
+            className="hidden rounded-full bg-gradient-bubble px-5 py-2.5 text-sm font-bold text-bubble-foreground shadow-soft transition hover:scale-105 md:inline-block"
+          >
+            Shop Now
+          </Link>
+
+          <button
+            aria-label="Menu"
+            onClick={() => setOpen(!open)}
+            className="grid h-10 w-10 place-items-center rounded-2xl bg-accent md:hidden"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
