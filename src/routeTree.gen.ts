@@ -10,14 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as SecureAdminPanel9271RouteImport } from './routes/secure-admin-panel-9271'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SecureAdminPanel9271IndexRouteImport } from './routes/secure-admin-panel-9271.index'
+import { Route as SecureAdminPanel9271TestimonialsRouteImport } from './routes/secure-admin-panel-9271.testimonials'
+import { Route as SecureAdminPanel9271ProductsRouteImport } from './routes/secure-admin-panel-9271.products'
+import { Route as SecureAdminPanel9271OrdersRouteImport } from './routes/secure-admin-panel-9271.orders'
+import { Route as SecureAdminPanel9271LoginRouteImport } from './routes/secure-admin-panel-9271.login'
+import { Route as SecureAdminPanel9271HomepageRouteImport } from './routes/secure-admin-panel-9271.homepage'
+import { Route as SecureAdminPanel9271CategoriesRouteImport } from './routes/secure-admin-panel-9271.categories'
 import { Route as ProductsProductIdRouteImport } from './routes/products.$productId'
 
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecureAdminPanel9271Route = SecureAdminPanel9271RouteImport.update({
+  id: '/secure-admin-panel-9271',
+  path: '/secure-admin-panel-9271',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -35,6 +48,48 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SecureAdminPanel9271IndexRoute =
+  SecureAdminPanel9271IndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
+const SecureAdminPanel9271TestimonialsRoute =
+  SecureAdminPanel9271TestimonialsRouteImport.update({
+    id: '/testimonials',
+    path: '/testimonials',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
+const SecureAdminPanel9271ProductsRoute =
+  SecureAdminPanel9271ProductsRouteImport.update({
+    id: '/products',
+    path: '/products',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
+const SecureAdminPanel9271OrdersRoute =
+  SecureAdminPanel9271OrdersRouteImport.update({
+    id: '/orders',
+    path: '/orders',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
+const SecureAdminPanel9271LoginRoute =
+  SecureAdminPanel9271LoginRouteImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
+const SecureAdminPanel9271HomepageRoute =
+  SecureAdminPanel9271HomepageRouteImport.update({
+    id: '/homepage',
+    path: '/homepage',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
+const SecureAdminPanel9271CategoriesRoute =
+  SecureAdminPanel9271CategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => SecureAdminPanel9271Route,
+  } as any)
 const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
   id: '/products/$productId',
   path: '/products/$productId',
@@ -45,8 +100,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/secure-admin-panel-9271': typeof SecureAdminPanel9271RouteWithChildren
   '/shop': typeof ShopRoute
   '/products/$productId': typeof ProductsProductIdRoute
+  '/secure-admin-panel-9271/categories': typeof SecureAdminPanel9271CategoriesRoute
+  '/secure-admin-panel-9271/homepage': typeof SecureAdminPanel9271HomepageRoute
+  '/secure-admin-panel-9271/login': typeof SecureAdminPanel9271LoginRoute
+  '/secure-admin-panel-9271/orders': typeof SecureAdminPanel9271OrdersRoute
+  '/secure-admin-panel-9271/products': typeof SecureAdminPanel9271ProductsRoute
+  '/secure-admin-panel-9271/testimonials': typeof SecureAdminPanel9271TestimonialsRoute
+  '/secure-admin-panel-9271/': typeof SecureAdminPanel9271IndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,33 +117,82 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/products/$productId': typeof ProductsProductIdRoute
+  '/secure-admin-panel-9271/categories': typeof SecureAdminPanel9271CategoriesRoute
+  '/secure-admin-panel-9271/homepage': typeof SecureAdminPanel9271HomepageRoute
+  '/secure-admin-panel-9271/login': typeof SecureAdminPanel9271LoginRoute
+  '/secure-admin-panel-9271/orders': typeof SecureAdminPanel9271OrdersRoute
+  '/secure-admin-panel-9271/products': typeof SecureAdminPanel9271ProductsRoute
+  '/secure-admin-panel-9271/testimonials': typeof SecureAdminPanel9271TestimonialsRoute
+  '/secure-admin-panel-9271': typeof SecureAdminPanel9271IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/secure-admin-panel-9271': typeof SecureAdminPanel9271RouteWithChildren
   '/shop': typeof ShopRoute
   '/products/$productId': typeof ProductsProductIdRoute
+  '/secure-admin-panel-9271/categories': typeof SecureAdminPanel9271CategoriesRoute
+  '/secure-admin-panel-9271/homepage': typeof SecureAdminPanel9271HomepageRoute
+  '/secure-admin-panel-9271/login': typeof SecureAdminPanel9271LoginRoute
+  '/secure-admin-panel-9271/orders': typeof SecureAdminPanel9271OrdersRoute
+  '/secure-admin-panel-9271/products': typeof SecureAdminPanel9271ProductsRoute
+  '/secure-admin-panel-9271/testimonials': typeof SecureAdminPanel9271TestimonialsRoute
+  '/secure-admin-panel-9271/': typeof SecureAdminPanel9271IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/shop' | '/products/$productId'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/secure-admin-panel-9271'
+    | '/shop'
+    | '/products/$productId'
+    | '/secure-admin-panel-9271/categories'
+    | '/secure-admin-panel-9271/homepage'
+    | '/secure-admin-panel-9271/login'
+    | '/secure-admin-panel-9271/orders'
+    | '/secure-admin-panel-9271/products'
+    | '/secure-admin-panel-9271/testimonials'
+    | '/secure-admin-panel-9271/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/shop' | '/products/$productId'
-  id:
-    | '__root__'
+  to:
     | '/'
     | '/about'
     | '/contact'
     | '/shop'
     | '/products/$productId'
+    | '/secure-admin-panel-9271/categories'
+    | '/secure-admin-panel-9271/homepage'
+    | '/secure-admin-panel-9271/login'
+    | '/secure-admin-panel-9271/orders'
+    | '/secure-admin-panel-9271/products'
+    | '/secure-admin-panel-9271/testimonials'
+    | '/secure-admin-panel-9271'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/secure-admin-panel-9271'
+    | '/shop'
+    | '/products/$productId'
+    | '/secure-admin-panel-9271/categories'
+    | '/secure-admin-panel-9271/homepage'
+    | '/secure-admin-panel-9271/login'
+    | '/secure-admin-panel-9271/orders'
+    | '/secure-admin-panel-9271/products'
+    | '/secure-admin-panel-9271/testimonials'
+    | '/secure-admin-panel-9271/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  SecureAdminPanel9271Route: typeof SecureAdminPanel9271RouteWithChildren
   ShopRoute: typeof ShopRoute
   ProductsProductIdRoute: typeof ProductsProductIdRoute
 }
@@ -92,6 +204,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/secure-admin-panel-9271': {
+      id: '/secure-admin-panel-9271'
+      path: '/secure-admin-panel-9271'
+      fullPath: '/secure-admin-panel-9271'
+      preLoaderRoute: typeof SecureAdminPanel9271RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -115,6 +234,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/secure-admin-panel-9271/': {
+      id: '/secure-admin-panel-9271/'
+      path: '/'
+      fullPath: '/secure-admin-panel-9271/'
+      preLoaderRoute: typeof SecureAdminPanel9271IndexRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
+    '/secure-admin-panel-9271/testimonials': {
+      id: '/secure-admin-panel-9271/testimonials'
+      path: '/testimonials'
+      fullPath: '/secure-admin-panel-9271/testimonials'
+      preLoaderRoute: typeof SecureAdminPanel9271TestimonialsRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
+    '/secure-admin-panel-9271/products': {
+      id: '/secure-admin-panel-9271/products'
+      path: '/products'
+      fullPath: '/secure-admin-panel-9271/products'
+      preLoaderRoute: typeof SecureAdminPanel9271ProductsRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
+    '/secure-admin-panel-9271/orders': {
+      id: '/secure-admin-panel-9271/orders'
+      path: '/orders'
+      fullPath: '/secure-admin-panel-9271/orders'
+      preLoaderRoute: typeof SecureAdminPanel9271OrdersRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
+    '/secure-admin-panel-9271/login': {
+      id: '/secure-admin-panel-9271/login'
+      path: '/login'
+      fullPath: '/secure-admin-panel-9271/login'
+      preLoaderRoute: typeof SecureAdminPanel9271LoginRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
+    '/secure-admin-panel-9271/homepage': {
+      id: '/secure-admin-panel-9271/homepage'
+      path: '/homepage'
+      fullPath: '/secure-admin-panel-9271/homepage'
+      preLoaderRoute: typeof SecureAdminPanel9271HomepageRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
+    '/secure-admin-panel-9271/categories': {
+      id: '/secure-admin-panel-9271/categories'
+      path: '/categories'
+      fullPath: '/secure-admin-panel-9271/categories'
+      preLoaderRoute: typeof SecureAdminPanel9271CategoriesRouteImport
+      parentRoute: typeof SecureAdminPanel9271Route
+    }
     '/products/$productId': {
       id: '/products/$productId'
       path: '/products/$productId'
@@ -125,10 +293,34 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface SecureAdminPanel9271RouteChildren {
+  SecureAdminPanel9271CategoriesRoute: typeof SecureAdminPanel9271CategoriesRoute
+  SecureAdminPanel9271HomepageRoute: typeof SecureAdminPanel9271HomepageRoute
+  SecureAdminPanel9271LoginRoute: typeof SecureAdminPanel9271LoginRoute
+  SecureAdminPanel9271OrdersRoute: typeof SecureAdminPanel9271OrdersRoute
+  SecureAdminPanel9271ProductsRoute: typeof SecureAdminPanel9271ProductsRoute
+  SecureAdminPanel9271TestimonialsRoute: typeof SecureAdminPanel9271TestimonialsRoute
+  SecureAdminPanel9271IndexRoute: typeof SecureAdminPanel9271IndexRoute
+}
+
+const SecureAdminPanel9271RouteChildren: SecureAdminPanel9271RouteChildren = {
+  SecureAdminPanel9271CategoriesRoute: SecureAdminPanel9271CategoriesRoute,
+  SecureAdminPanel9271HomepageRoute: SecureAdminPanel9271HomepageRoute,
+  SecureAdminPanel9271LoginRoute: SecureAdminPanel9271LoginRoute,
+  SecureAdminPanel9271OrdersRoute: SecureAdminPanel9271OrdersRoute,
+  SecureAdminPanel9271ProductsRoute: SecureAdminPanel9271ProductsRoute,
+  SecureAdminPanel9271TestimonialsRoute: SecureAdminPanel9271TestimonialsRoute,
+  SecureAdminPanel9271IndexRoute: SecureAdminPanel9271IndexRoute,
+}
+
+const SecureAdminPanel9271RouteWithChildren =
+  SecureAdminPanel9271Route._addFileChildren(SecureAdminPanel9271RouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  SecureAdminPanel9271Route: SecureAdminPanel9271RouteWithChildren,
   ShopRoute: ShopRoute,
   ProductsProductIdRoute: ProductsProductIdRoute,
 }
