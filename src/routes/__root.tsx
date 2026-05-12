@@ -1,6 +1,9 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import appCss from "../styles.css?url";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 function NotFoundComponent() {
   return (
@@ -23,15 +26,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Infinity Learning Center — Smart Learning for Curious Kids" },
-      { name: "description", content: "Educational flashcards, EVS worksheets, tuition notes, handwriting & brain exercise books for kids. Order on WhatsApp." },
-      { property: "og:title", content: "Infinity Learning Center — Smart Learning for Curious Kids" },
-      { property: "og:description", content: "Educational flashcards, EVS worksheets, tuition notes, handwriting & brain exercise books for kids. Order on WhatsApp." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Infinity Learning Center — Smart Learning for Curious Kids" },
-      { name: "twitter:description", content: "Educational flashcards, EVS worksheets, tuition notes, handwriting & brain exercise books for kids. Order on WhatsApp." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/371e5323-933d-477d-ab9a-9abfe6bb33b6/id-preview-e129ce9a--0cb9257d-b1d4-418d-ad33-ec5adbfae0e0.lovable.app-1778073828777.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/371e5323-933d-477d-ab9a-9abfe6bb33b6/id-preview-e129ce9a--0cb9257d-b1d4-418d-ad33-ec5adbfae0e0.lovable.app-1778073828777.png" },
+      { name: "description", content: "Educational flashcards, EVS worksheets and tuition materials. Order on WhatsApp." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -55,9 +50,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const [qc] = useState(() => new QueryClient({ defaultOptions: { queries: { staleTime: 30_000, retry: 1 } } }));
   return (
-    <CartProvider>
-      <Outlet />
-    </CartProvider>
+    <QueryClientProvider client={qc}>
+      <AuthProvider>
+        <CartProvider>
+          <Outlet />
+        </CartProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

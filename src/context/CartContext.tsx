@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { Product } from "@/data/products";
 
 export type CartItem = {
   id: string;
@@ -16,7 +15,7 @@ type CartCtx = {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  addItem: (p: Product, qty?: number) => void;
+  addItem: (p: { id: string; name: string; price: number; image: string }, qty?: number) => void;
   removeItem: (id: string) => void;
   setQuantity: (id: string, qty: number) => void;
   clear: () => void;
@@ -34,19 +33,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const raw = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
       if (raw) setItems(JSON.parse(raw));
-    } catch {
-      /* ignore */
-    }
+    } catch {}
     setHydrated(true);
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-    } catch {
-      /* ignore */
-    }
+    try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch {}
   }, [items, hydrated]);
 
   const value = useMemo<CartCtx>(() => {
@@ -62,9 +55,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       addItem: (p, qty = 1) => {
         setItems((prev) => {
           const existing = prev.find((i) => i.id === p.id);
-          if (existing) {
-            return prev.map((i) => (i.id === p.id ? { ...i, quantity: i.quantity + qty } : i));
-          }
+          if (existing) return prev.map((i) => (i.id === p.id ? { ...i, quantity: i.quantity + qty } : i));
           return [...prev, { id: p.id, name: p.name, price: p.price, image: p.image, quantity: qty }];
         });
         setIsOpen(true);
