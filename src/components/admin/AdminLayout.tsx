@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { LayoutDashboard, Package, Tags, MessageSquareQuote, Home, ShoppingBag, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, Package, Tags, MessageSquareQuote, Home, ShoppingBag, LogOut, Sparkles, UserPlus } from "lucide-react";
 
 const ADMIN_BASE = "/secure-admin-panel-9271";
 
@@ -12,6 +12,7 @@ const items = [
   { to: `${ADMIN_BASE}/testimonials`, label: "Testimonials", icon: MessageSquareQuote },
   { to: `${ADMIN_BASE}/homepage`, label: "Homepage", icon: Home },
   { to: `${ADMIN_BASE}/orders`, label: "Orders", icon: ShoppingBag },
+  { to: `${ADMIN_BASE}/admins`, label: "Admins", icon: UserPlus },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
