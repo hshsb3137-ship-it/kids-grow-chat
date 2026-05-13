@@ -35,11 +35,6 @@ export const inviteAdmin = createServerFn({ method: "POST" })
     if (existing) {
       userId = existing.id;
     } else {
-      const redirectTo = `${process.env.SUPABASE_URL?.replace(
-        ".supabase.co",
-        ""
-      )}` // not used; we use site URL below
-      // Use site URL from request origin if present; otherwise fall back to Supabase project URL.
       const { data: invited, error: inviteErr } =
         await supabaseAdmin.auth.admin.inviteUserByEmail(email);
       if (inviteErr) throw new Error(inviteErr.message);
