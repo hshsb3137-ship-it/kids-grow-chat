@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SecureAdminPanel9271RouteImport } from './routes/secure-admin-panel-9271'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,6 +32,11 @@ const ShopRoute = ShopRouteImport.update({
 const SecureAdminPanel9271Route = SecureAdminPanel9271RouteImport.update({
   id: '/secure-admin-panel-9271',
   path: '/secure-admin-panel-9271',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/secure-admin-panel-9271': typeof SecureAdminPanel9271RouteWithChildren
   '/shop': typeof ShopRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/shop': typeof ShopRoute
   '/products/$productId': typeof ProductsProductIdRoute
   '/secure-admin-panel-9271/categories': typeof SecureAdminPanel9271CategoriesRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/secure-admin-panel-9271': typeof SecureAdminPanel9271RouteWithChildren
   '/shop': typeof ShopRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/reset-password'
     | '/secure-admin-panel-9271'
     | '/shop'
     | '/products/$productId'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/reset-password'
     | '/shop'
     | '/products/$productId'
     | '/secure-admin-panel-9271/categories'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/reset-password'
     | '/secure-admin-panel-9271'
     | '/shop'
     | '/products/$productId'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SecureAdminPanel9271Route: typeof SecureAdminPanel9271RouteWithChildren
   ShopRoute: typeof ShopRoute
   ProductsProductIdRoute: typeof ProductsProductIdRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       path: '/secure-admin-panel-9271'
       fullPath: '/secure-admin-panel-9271'
       preLoaderRoute: typeof SecureAdminPanel9271RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -320,6 +340,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SecureAdminPanel9271Route: SecureAdminPanel9271RouteWithChildren,
   ShopRoute: ShopRoute,
   ProductsProductIdRoute: ProductsProductIdRoute,

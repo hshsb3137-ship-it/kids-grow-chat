@@ -36,7 +36,7 @@ function LoginPage() {
     const fn = mode === "login" ? signIn : signUp;
     const { error } = await fn(email, password);
     setBusy(false);
-    if (error) setErr(error.message);
+    if (error) setErr(error);
     else if (mode === "signup") setInfo("Check your email to confirm your account.");
   };
 
