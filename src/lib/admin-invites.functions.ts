@@ -19,7 +19,7 @@ export const inviteAdmin = createServerFn({ method: "POST" })
       .eq("role", "admin")
       .maybeSingle();
     if (roleErr) throw new Error(roleErr.message);
-    if (!roleRow) throw new Response("Forbidden: admin only", { status: 403 });
+    if (!roleRow) throw new Error("Forbidden: admin only");
 
     const email = data.email.toLowerCase().trim();
 
@@ -67,7 +67,7 @@ export const listAdmins = createServerFn({ method: "GET" })
       .eq("user_id", context.userId)
       .eq("role", "admin")
       .maybeSingle();
-    if (!roleRow) throw new Response("Forbidden: admin only", { status: 403 });
+    if (!roleRow) throw new Error("Forbidden: admin only");
 
     const { data: roles, error } = await supabaseAdmin
       .from("user_roles")
@@ -103,7 +103,7 @@ export const revokeAdmin = createServerFn({ method: "POST" })
       .eq("user_id", context.userId)
       .eq("role", "admin")
       .maybeSingle();
-    if (!roleRow) throw new Response("Forbidden: admin only", { status: 403 });
+    if (!roleRow) throw new Error("Forbidden: admin only");
     if (data.user_id === context.userId) {
       throw new Error("You cannot revoke your own admin access.");
     }
