@@ -8,10 +8,10 @@ export const Route = createFileRoute("/secure-admin-panel-9271/login")({
   component: LoginPage,
 });
 
-type Mode = "login" | "signup" | "forgot";
+type Mode = "login" | "forgot";
 
 function LoginPage() {
-  const { signIn, signUp } = useAuth();
+  const { signIn } = useAuth();
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,16 +33,13 @@ function LoginPage() {
       return;
     }
 
-    const fn = mode === "login" ? signIn : signUp;
-    const { error } = await fn(email, password);
+    const { error } = await signIn(email, password);
     setBusy(false);
     if (error) setErr(error);
-    else if (mode === "signup") setInfo("Check your email to confirm your account.");
   };
 
   const titles: Record<Mode, { title: string; sub: string; cta: string }> = {
-    login: { title: "Admin Sign In", sub: "Restricted access", cta: "Sign In" },
-    signup: { title: "Admin Setup", sub: "Create the first (and only) admin account", cta: "Create Admin Account" },
+    login: { title: "Admin Sign In", sub: "Restricted access — invite only", cta: "Sign In" },
     forgot: { title: "Reset password", sub: "We'll email you a secure reset link.", cta: "Send reset link" },
   };
   const t = titles[mode];
@@ -59,7 +56,7 @@ function LoginPage() {
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email"
             className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
           {mode !== "forgot" && (
-            <input type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password (min 8 chars)"
+            <input type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"
               className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-primary" />
           )}
           {err && <p className="text-sm text-destructive">{err}</p>}
@@ -70,17 +67,11 @@ function LoginPage() {
         </form>
 
         <div className="mt-4 flex flex-col gap-1.5 text-center text-xs font-semibold text-muted-foreground">
-          {mode === "login" && (
-            <>
-              <button onClick={() => { setMode("forgot"); setErr(null); setInfo(null); }} className="hover:text-primary">
-                Forgot password?
-              </button>
-              <button onClick={() => { setMode("signup"); setErr(null); setInfo(null); }} className="hover:text-primary">
-                First time? Set up admin →
-              </button>
-            </>
-          )}
-          {mode !== "login" && (
+          {mode === "login" ? (
+            <button onClick={() => { setMode("forgot"); setErr(null); setInfo(null); }} className="hover:text-primary">
+              Forgot password?
+            </button>
+          ) : (
             <button onClick={() => { setMode("login"); setErr(null); setInfo(null); }} className="hover:text-primary">
               ← Back to sign in
             </button>
