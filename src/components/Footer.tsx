@@ -21,7 +21,7 @@ export function Footer() {
           <h4 className="font-display text-base font-bold">Explore</h4>
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link to="/shop" className="hover:text-primary">Shop</Link></li>
-            <li><Link to="/courses" className="hover:text-primary">Courses</Link></li>
+            <li><Link to="/shop" search={{ category: "tuition-materials" }} className="hover:text-primary">Tuition Materials</Link></li>
             <li><Link to="/about" className="hover:text-primary">About</Link></li>
             <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
           </ul>
