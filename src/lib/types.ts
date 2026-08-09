@@ -32,6 +32,7 @@ export interface Testimonial {
   role: string | null;
   quote: string;
   rating: number;
+  image_url: string | null;
   display_order: number;
   is_active: boolean;
 }
