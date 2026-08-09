@@ -48,15 +48,15 @@ function ProductPage() {
         </Link>
 
         <div className="grid gap-10 md:grid-cols-2">
-          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-            className="relative overflow-hidden rounded-[2rem] bg-gradient-hero p-8 shadow-soft">
-            <img src={img} alt={product.name} className="mx-auto aspect-square w-full max-w-md object-contain" />
+          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="relative">
+            <ProductGallery images={product.images ?? []} alt={product.name} />
             {product.badge && (
-              <span className="absolute left-5 top-5 rounded-full bg-card px-3 py-1 text-xs font-bold text-primary shadow-soft">
+              <span className="absolute left-5 top-5 z-10 rounded-full bg-card px-3 py-1 text-xs font-bold text-primary shadow-soft">
                 ✨ {product.badge}
               </span>
             )}
           </motion.div>
+
 
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
             {product.category?.name && <span className="text-xs font-bold uppercase tracking-wide text-primary">{product.category.name}</span>}
