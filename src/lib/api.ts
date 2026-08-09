@@ -141,6 +141,35 @@ export async function uploadProductImage(file: File): Promise<string> {
   return data.publicUrl;
 }
 
+const IMAGE_BUCKET = "product-images";
+
+export async function uploadTestimonialImage(file: File): Promise<string> {
+  const ok = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+  if (!ok.includes(file.type)) throw new Error("Unsupported file type. Use JPG, PNG or WEBP.");
+  if (file.size > 8 * 1024 * 1024) throw new Error("Image is too large. Maximum size is 8 MB.");
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `testimonials/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error } = await supabase.storage.from(IMAGE_BUCKET).upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+    contentType: file.type,
+  });
+  if (error) throw new Error(error.message);
+  const { data } = supabase.storage.from(IMAGE_BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+/** Best-effort removal of a previously uploaded image from storage. */
+export async function removeStorageImage(url: string | null | undefined) {
+  if (!url) return;
+  const marker = `/${IMAGE_BUCKET}/`;
+  const idx = url.indexOf(marker);
+  if (idx === -1) return;
+  const path = decodeURIComponent(url.slice(idx + marker.length));
+  const { error } = await supabase.storage.from(IMAGE_BUCKET).remove([path]);
+  if (error) console.error("Storage cleanup failed:", error.message);
+}
+
 export async function deleteOrder(id: string) {
   const { error } = await supabase.from("orders").delete().eq("id", id);
   if (error) throw error;

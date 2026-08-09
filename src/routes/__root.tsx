@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import appCss from "../styles.css?url";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -64,6 +65,7 @@ function RootComponent() {
       <AuthProvider>
         <CartProvider>
           <Outlet />
+          <Toaster richColors position="top-center" />
         </CartProvider>
       </AuthProvider>
     </QueryClientProvider>
