@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductGallery } from "@/components/ProductGallery";
+
 import { fetchProductBySlug, fetchProducts, firstImage } from "@/lib/api";
 import { useCart } from "@/context/CartContext";
 import { whatsappOrderUrl } from "@/lib/whatsapp";
