@@ -83,7 +83,15 @@ function AdminsPage() {
           <h2 className="font-display font-bold">Current admins</h2>
         </div>
         {isLoading ? (
-          <p className="p-6 text-sm text-muted-foreground">Loading…</p>
+          <p className="p-6 text-sm text-muted-foreground">Loading admins…</p>
+        ) : isError ? (
+          <div className="p-6">
+            <p className="text-sm font-semibold text-destructive">Unable to load admins. Please try again.</p>
+            <p className="mt-1 text-xs text-muted-foreground">{(error as any)?.message}</p>
+            <button onClick={() => refetch()} className="mt-3 rounded-full bg-gradient-primary px-4 py-2 text-xs font-bold text-primary-foreground">
+              {isFetching ? "Retrying…" : "Retry"}
+            </button>
+          </div>
         ) : admins.length === 0 ? (
           <p className="p-6 text-sm text-muted-foreground">No admins yet.</p>
         ) : (
