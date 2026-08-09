@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const InviteSchema = z.object({
   email: z.string().email().max(255),
@@ -11,6 +10,7 @@ export const inviteAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => InviteSchema.parse(input))
   .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     // Caller must be an admin.
     const { data: roleRow, error: roleErr } = await context.supabase
       .from("user_roles")
@@ -61,6 +61,7 @@ export const inviteAdmin = createServerFn({ method: "POST" })
 export const listAdmins = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: roleRow } = await context.supabase
       .from("user_roles")
       .select("role")
@@ -97,6 +98,7 @@ export const revokeAdmin = createServerFn({ method: "POST" })
     z.object({ user_id: z.string().uuid() }).parse(input)
   )
   .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: roleRow } = await context.supabase
       .from("user_roles")
       .select("role")
