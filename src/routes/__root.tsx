@@ -64,6 +64,7 @@ function RootComponent() {
       <AuthProvider>
         <CartProvider>
           <Outlet />
+          <Toaster richColors position="top-center" />
         </CartProvider>
       </AuthProvider>
     </QueryClientProvider>
