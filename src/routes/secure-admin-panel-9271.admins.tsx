@@ -15,9 +15,10 @@ function AdminsPage() {
   const list = useServerFn(listAdmins);
   const revoke = useServerFn(revokeAdmin);
 
-  const { data: admins = [], isLoading } = useQuery({
+  const { data: admins = [], isLoading, isError, error, refetch, isFetching } = useQuery({
     queryKey: ["admins"],
     queryFn: () => list(),
+    retry: 0,
   });
 
   const [email, setEmail] = useState("");
