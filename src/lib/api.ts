@@ -174,3 +174,19 @@ export async function deleteOrder(id: string) {
   const { error } = await supabase.from("orders").delete().eq("id", id);
   if (error) throw error;
 }
+
+export async function uploadAboutImage(file: File): Promise<string> {
+  const ok = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+  if (!ok.includes(file.type)) throw new Error("Unsupported file type. Use JPG, JPEG, PNG or WEBP.");
+  if (file.size > 8 * 1024 * 1024) throw new Error("Image is too large. Maximum size is 8 MB.");
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `about/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error } = await supabase.storage.from(IMAGE_BUCKET).upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+    contentType: file.type,
+  });
+  if (error) throw new Error(error.message);
+  const { data } = supabase.storage.from(IMAGE_BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
