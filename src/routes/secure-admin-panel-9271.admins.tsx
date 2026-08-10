@@ -17,8 +17,14 @@ function AdminsPage() {
 
   const { data: admins = [], isLoading, isError, error, refetch, isFetching } = useQuery({
     queryKey: ["admins"],
-    queryFn: () => list(),
-    retry: 0,
+    queryFn: async () => {
+      const result = await list();
+      if (!Array.isArray(result)) {
+        throw new Error("The admin list returned an invalid response. Please retry.");
+      }
+      return result;
+    },
+    retry: 1,
   });
 
   const [email, setEmail] = useState("");
@@ -87,7 +93,9 @@ function AdminsPage() {
         ) : isError ? (
           <div className="p-6">
             <p className="text-sm font-semibold text-destructive">Unable to load admins. Please try again.</p>
-            <p className="mt-1 text-xs text-muted-foreground">{(error as any)?.message}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {error instanceof Error ? error.message : "The request could not be completed."}
+            </p>
             <button onClick={() => refetch()} className="mt-3 rounded-full bg-gradient-primary px-4 py-2 text-xs font-bold text-primary-foreground">
               {isFetching ? "Retrying…" : "Retry"}
             </button>
