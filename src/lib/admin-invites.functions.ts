@@ -2,15 +2,12 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const InviteSchema = z.object({
-  email: z.string().email().max(255),
-});
-
 export const inviteAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => InviteSchema.parse(input))
+  .inputValidator((input: unknown) =>
+    z.object({ email: z.string().email().max(255) }).parse(input)
+  )
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     // Caller must be an admin.
     const { data: roleRow, error: roleErr } = await context.supabase
       .from("user_roles")
@@ -20,6 +17,8 @@ export const inviteAdmin = createServerFn({ method: "POST" })
       .maybeSingle();
     if (roleErr) throw new Error(roleErr.message);
     if (!roleRow) throw new Error("Forbidden: admin only");
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const email = data.email.toLowerCase().trim();
 
@@ -61,14 +60,16 @@ export const inviteAdmin = createServerFn({ method: "POST" })
 export const listAdmins = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: roleRow } = await context.supabase
+    const { data: roleRow, error: roleError } = await context.supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", context.userId)
       .eq("role", "admin")
       .maybeSingle();
+    if (roleError) throw new Error(roleError.message);
     if (!roleRow) throw new Error("Forbidden: admin only");
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { data: roles, error } = await supabaseAdmin
       .from("user_roles")
@@ -76,10 +77,11 @@ export const listAdmins = createServerFn({ method: "GET" })
       .eq("role", "admin");
     if (error) throw new Error(error.message);
 
-    const { data: list } = await supabaseAdmin.auth.admin.listUsers({
+    const { data: list, error: listError } = await supabaseAdmin.auth.admin.listUsers({
       page: 1,
       perPage: 200,
     });
+    if (listError) throw new Error(listError.message);
     const byId = new Map(list?.users.map((u) => [u.id, u]) ?? []);
     return (roles ?? []).map((r) => {
       const u = byId.get(r.user_id);
@@ -98,17 +100,19 @@ export const revokeAdmin = createServerFn({ method: "POST" })
     z.object({ user_id: z.string().uuid() }).parse(input)
   )
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: roleRow } = await context.supabase
+    const { data: roleRow, error: roleError } = await context.supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", context.userId)
       .eq("role", "admin")
       .maybeSingle();
+    if (roleError) throw new Error(roleError.message);
     if (!roleRow) throw new Error("Forbidden: admin only");
     if (data.user_id === context.userId) {
       throw new Error("You cannot revoke your own admin access.");
     }
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { error } = await supabaseAdmin
       .from("user_roles")
