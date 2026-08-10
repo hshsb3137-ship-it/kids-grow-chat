@@ -78,3 +78,21 @@ export interface ContactContent {
   address: string;
   map_url: string;
 }
+
+export interface AboutHeroContent {
+  heading: string;
+  subtitle: string;
+}
+export interface AboutStoryContent {
+  heading: string;
+  content: string;
+  image_url: string | null;
+  caption: string;
+}
+export interface AboutFeature {
+  icon: string;
+  title: string;
+  desc: string;
+  display_order: number;
+  is_active: boolean;
+}
