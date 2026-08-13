@@ -31,7 +31,7 @@ export function Footer() {
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +91 80755 83203</li>
             <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> hello@infinitylearning.in</li>
-            <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Kerala, India</li>
+            <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Maharashtra, India</li>
           </ul>
         </div>
         <div>
