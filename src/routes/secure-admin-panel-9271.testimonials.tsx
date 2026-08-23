@@ -64,7 +64,7 @@ function TestimonialsAdmin() {
         ...editing,
         name: editing.name?.trim() || "",
         role: editing.role?.trim() || null,
-        quote: editing.quote.trim(),
+        quote: editing.quote?.trim() || "",
         image_url: editing.image_url ?? null,
       });
       if (removedUrl && removedUrl !== editing.image_url) await removeStorageImage(removedUrl);
