@@ -167,7 +167,6 @@ function HomepageAdmin() {
           <div><Lbl>Email</Lbl><input value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} className={inputCls} /></div>
           <div><Lbl>Address</Lbl><input value={contact.address} onChange={(e) => setContact({ ...contact, address: e.target.value })} className={inputCls} /></div>
         </div>
-        <Lbl>Map embed URL</Lbl><input value={contact.map_url} onChange={(e) => setContact({ ...contact, map_url: e.target.value })} className={inputCls} />
         <SaveBtn onClick={() => save("contact", contact)} />
       </Section>
     </div>

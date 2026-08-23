@@ -10,8 +10,8 @@ const DEFAULT_CONTACT = {
   phone: "+91 80755 83203",
   whatsapp: "918075583203",
   email: "hello@infinitylearning.in",
-  address: "Infinity Learning Center, Kerala, India",
-  map_url: "https://www.google.com/maps?q=Kerala+India&output=embed",
+  address: "Maharashtra, India",
+  map_url: "",
 };
 
 export const Route = createFileRoute("/contact")({
@@ -29,9 +29,6 @@ function ContactPage() {
   const { data } = useQuery({ queryKey: ["site_content"], queryFn: fetchSiteContent });
   const contact = { ...DEFAULT_CONTACT, ...(data?.contact ?? {}) };
   const waNumber = (contact.whatsapp || DEFAULT_CONTACT.whatsapp).replace(/\D/g, "");
-  const mapSrc =
-    contact.map_url?.trim() ||
-    `https://www.google.com/maps?q=${encodeURIComponent(contact.address || "Kerala India")}&output=embed`;
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,17 +71,6 @@ function ContactPage() {
           >
             Chat on WhatsApp
           </a>
-          <div className="overflow-hidden rounded-3xl border border-border shadow-soft">
-            <iframe
-              title="Map"
-              src={mapSrc}
-              width="100%"
-              height="240"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="block"
-            />
-          </div>
         </div>
 
         <form onSubmit={onSubmit} className="space-y-4 rounded-3xl border border-border bg-card p-6 shadow-soft">
