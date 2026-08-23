@@ -84,7 +84,7 @@ export function Testimonials() {
               </div>
             )}
 
-            <p className="mt-4 flex-1 text-sm text-foreground/80">"{r.quote}"</p>
+            {r.quote?.trim() && <p className="mt-4 flex-1 text-sm text-foreground/80">"{r.quote}"</p>}
 
             <div className="mt-5 flex items-center gap-3">
               <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-primary font-bold text-primary-foreground">
