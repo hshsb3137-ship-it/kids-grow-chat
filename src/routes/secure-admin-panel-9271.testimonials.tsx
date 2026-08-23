@@ -54,8 +54,8 @@ function TestimonialsAdmin() {
   };
 
   const save = async () => {
-    if (!editing?.quote?.trim()) {
-      toast.error("Quote is required.");
+    if (!editing?.image_url && !editing?.quote?.trim()) {
+      toast.error("Please upload a photo or enter a quote.");
       return;
     }
     setSaving(true);
