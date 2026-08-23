@@ -3,6 +3,16 @@ import { Layout } from "@/components/Layout";
 import { whatsappContactUrl } from "@/lib/whatsapp";
 import { Phone, MapPin, Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteContent } from "@/lib/api";
+
+const DEFAULT_CONTACT = {
+  phone: "+91 80755 83203",
+  whatsapp: "918075583203",
+  email: "hello@infinitylearning.in",
+  address: "Infinity Learning Center, Kerala, India",
+  map_url: "https://www.google.com/maps?q=Kerala+India&output=embed",
+};
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
