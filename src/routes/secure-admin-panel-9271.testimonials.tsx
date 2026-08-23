@@ -182,17 +182,7 @@ function TestimonialsAdmin() {
               <button onClick={() => setEditing(null)} aria-label="Close"><X className="h-4 w-4" /></button>
             </div>
 
-            <label className="block">
-              <span className="mb-1 block text-xs font-bold uppercase text-muted-foreground">Name (optional)</span>
-              <input value={editing.name ?? ""} onChange={(e) => setEditing({ ...editing, name: e.target.value })} className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm" />
-            </label>
-
-            <label className="mt-3 block">
-              <span className="mb-1 block text-xs font-bold uppercase text-muted-foreground">Role (optional)</span>
-              <input value={editing.role ?? ""} onChange={(e) => setEditing({ ...editing, role: e.target.value })} className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm" />
-            </label>
-
-            <div className="mt-3">
+            <div className="block">
               <span className="mb-1 block text-xs font-bold uppercase text-muted-foreground">Photo</span>
               <input
                 ref={fileRef}
@@ -219,6 +209,16 @@ function TestimonialsAdmin() {
                 </div>
               )}
             </div>
+
+            <label className="mt-3 block">
+              <span className="mb-1 block text-xs font-bold uppercase text-muted-foreground">Name (optional)</span>
+              <input value={editing.name ?? ""} onChange={(e) => setEditing({ ...editing, name: e.target.value })} className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm" />
+            </label>
+
+            <label className="mt-3 block">
+              <span className="mb-1 block text-xs font-bold uppercase text-muted-foreground">Role (optional)</span>
+              <input value={editing.role ?? ""} onChange={(e) => setEditing({ ...editing, role: e.target.value })} className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm" />
+            </label>
 
             <label className="mt-3 block">
               <span className="mb-1 block text-xs font-bold uppercase text-muted-foreground">Quote (optional)</span>
