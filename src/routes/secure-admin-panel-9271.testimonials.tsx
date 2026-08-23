@@ -159,7 +159,7 @@ function TestimonialsAdmin() {
                       <button onClick={() => remove(t)} title="Delete" className="grid h-8 w-8 place-items-center rounded-lg bg-destructive/10 text-destructive"><Trash2 className="h-3.5 w-3.5" /></button>
                     </div>
                   </div>
-                  <p className="mt-2 line-clamp-2 text-sm text-foreground/80">"{t.quote}"</p>
+                  {t.quote?.trim() && <p className="mt-2 line-clamp-2 text-sm text-foreground/80">"{t.quote}"</p>}
                   <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <span className="inline-flex items-center gap-0.5"><Star className="h-3 w-3 fill-sunny text-sunny" /> {t.rating}</span>
                     <span>· Order {t.display_order}</span>
