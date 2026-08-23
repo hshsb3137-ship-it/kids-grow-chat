@@ -51,11 +51,11 @@ function ContactPage() {
       <section className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-2">
         <div className="space-y-4">
           {[
-            { icon: Phone, label: "Phone", value: "+91 80755 83203" },
-            { icon: MessageCircle, label: "WhatsApp", value: "+91 80755 83203" },
-            { icon: Mail, label: "Email", value: "hello@infinitylearning.in" },
-            { icon: MapPin, label: "Address", value: "Infinity Learning Center, Kerala, India" },
-          ].map((c) => (
+            { icon: Phone, label: "Phone", value: contact.phone },
+            { icon: MessageCircle, label: "WhatsApp", value: contact.whatsapp },
+            { icon: Mail, label: "Email", value: contact.email },
+            { icon: MapPin, label: "Address", value: contact.address },
+          ].filter((c) => !!c.value).map((c) => (
             <div key={c.label} className="flex items-start gap-4 rounded-3xl border border-border bg-card p-5 shadow-soft">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-primary text-primary-foreground">
                 <c.icon className="h-5 w-5" />
