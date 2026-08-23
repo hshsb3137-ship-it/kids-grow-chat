@@ -92,7 +92,7 @@ function TestimonialsAdmin() {
   };
 
   const remove = async (t: Testimonial) => {
-    if (!confirm(`Delete the review from ${t.name}?`)) return;
+    if (!confirm(`Delete the review from ${t.name || "this parent"}?`)) return;
     try {
       await deleteTestimonial(t.id);
       await removeStorageImage(t.image_url);
@@ -143,12 +143,12 @@ function TestimonialsAdmin() {
             <div key={t.id} className="rounded-2xl border border-border bg-card p-5 shadow-soft">
               <div className="flex items-start gap-4">
                 <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-xl bg-gradient-primary text-lg font-bold text-primary-foreground">
-                  {t.image_url ? <img src={t.image_url} alt="" className="h-full w-full object-cover" loading="lazy" /> : t.name.charAt(0).toUpperCase()}
+                  {t.image_url ? <img src={t.image_url} alt="" className="h-full w-full object-cover" loading="lazy" /> : (t.name?.charAt(0).toUpperCase() || "★")}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <div className="truncate font-bold">{t.name}</div>
+                      <div className="truncate font-bold">{t.name || "Anonymous"}</div>
                       {t.role && <div className="truncate text-xs text-muted-foreground">{t.role}</div>}
                     </div>
                     <div className="flex shrink-0 gap-1">

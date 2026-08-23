@@ -76,7 +76,7 @@ export function Testimonials() {
               <div className="mt-4 overflow-hidden rounded-2xl border border-border bg-gradient-hero">
                 <img
                   src={r.image_url}
-                  alt={`Review from ${r.name}`}
+                  alt={`Review from ${r.name || "a parent"}`}
                   loading="lazy"
                   decoding="async"
                   className="max-h-72 w-full object-contain"
@@ -91,11 +91,11 @@ export function Testimonials() {
                 {r.image_url ? (
                   <img src={r.image_url} alt="" className="h-full w-full object-cover" loading="lazy" />
                 ) : (
-                  r.name.charAt(0).toUpperCase()
+                  (r.name?.charAt(0).toUpperCase() || "★")
                 )}
               </div>
               <div>
-                <span className="block font-bold leading-tight">{r.name}</span>
+                {r.name && <span className="block font-bold leading-tight">{r.name}</span>}
                 {r.role && <span className="text-xs text-muted-foreground">{r.role}</span>}
               </div>
             </div>
