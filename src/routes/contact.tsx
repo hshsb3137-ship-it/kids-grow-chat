@@ -77,7 +77,7 @@ function ContactPage() {
           <div className="overflow-hidden rounded-3xl border border-border shadow-soft">
             <iframe
               title="Map"
-              src="https://www.google.com/maps?q=Kerala+India&output=embed"
+              src={mapSrc}
               width="100%"
               height="240"
               loading="lazy"
