@@ -26,10 +26,17 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const { data } = useQuery({ queryKey: ["site_content"], queryFn: fetchSiteContent });
+  const contact = { ...DEFAULT_CONTACT, ...(data?.contact ?? {}) };
+  const waNumber = (contact.whatsapp || DEFAULT_CONTACT.whatsapp).replace(/\D/g, "");
+  const mapSrc =
+    contact.map_url?.trim() ||
+    `https://www.google.com/maps?q=${encodeURIComponent(contact.address || "Kerala India")}&output=embed`;
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Hello! My name is ${form.name} (${form.phone}). ${form.message}`;
-    window.open(`https://wa.me/918075583203?text=${encodeURIComponent(text)}`, "_blank");
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   return (
