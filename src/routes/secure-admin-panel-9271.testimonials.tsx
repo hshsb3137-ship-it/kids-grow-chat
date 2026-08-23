@@ -54,15 +54,15 @@ function TestimonialsAdmin() {
   };
 
   const save = async () => {
-    if (!editing?.name?.trim() || !editing.quote?.trim()) {
-      toast.error("Name and quote are required.");
+    if (!editing?.quote?.trim()) {
+      toast.error("Quote is required.");
       return;
     }
     setSaving(true);
     try {
       await upsertTestimonial({
         ...editing,
-        name: editing.name.trim(),
+        name: editing.name?.trim() || "",
         role: editing.role?.trim() || null,
         quote: editing.quote.trim(),
         image_url: editing.image_url ?? null,
