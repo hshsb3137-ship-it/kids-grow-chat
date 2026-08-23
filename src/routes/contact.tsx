@@ -3,6 +3,16 @@ import { Layout } from "@/components/Layout";
 import { whatsappContactUrl } from "@/lib/whatsapp";
 import { Phone, MapPin, Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteContent } from "@/lib/api";
+
+const DEFAULT_CONTACT = {
+  phone: "+91 80755 83203",
+  whatsapp: "918075583203",
+  email: "hello@infinitylearning.in",
+  address: "Infinity Learning Center, Kerala, India",
+  map_url: "https://www.google.com/maps?q=Kerala+India&output=embed",
+};
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -16,10 +26,17 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const { data } = useQuery({ queryKey: ["site_content"], queryFn: fetchSiteContent });
+  const contact = { ...DEFAULT_CONTACT, ...(data?.contact ?? {}) };
+  const waNumber = (contact.whatsapp || DEFAULT_CONTACT.whatsapp).replace(/\D/g, "");
+  const mapSrc =
+    contact.map_url?.trim() ||
+    `https://www.google.com/maps?q=${encodeURIComponent(contact.address || "Kerala India")}&output=embed`;
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Hello! My name is ${form.name} (${form.phone}). ${form.message}`;
-    window.open(`https://wa.me/918075583203?text=${encodeURIComponent(text)}`, "_blank");
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   return (
@@ -34,11 +51,11 @@ function ContactPage() {
       <section className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-2">
         <div className="space-y-4">
           {[
-            { icon: Phone, label: "Phone", value: "+91 80755 83203" },
-            { icon: MessageCircle, label: "WhatsApp", value: "+91 80755 83203" },
-            { icon: Mail, label: "Email", value: "hello@infinitylearning.in" },
-            { icon: MapPin, label: "Address", value: "Infinity Learning Center, Kerala, India" },
-          ].map((c) => (
+            { icon: Phone, label: "Phone", value: contact.phone },
+            { icon: MessageCircle, label: "WhatsApp", value: contact.whatsapp },
+            { icon: Mail, label: "Email", value: contact.email },
+            { icon: MapPin, label: "Address", value: contact.address },
+          ].filter((c) => !!c.value).map((c) => (
             <div key={c.label} className="flex items-start gap-4 rounded-3xl border border-border bg-card p-5 shadow-soft">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-primary text-primary-foreground">
                 <c.icon className="h-5 w-5" />
@@ -60,7 +77,7 @@ function ContactPage() {
           <div className="overflow-hidden rounded-3xl border border-border shadow-soft">
             <iframe
               title="Map"
-              src="https://www.google.com/maps?q=Kerala+India&output=embed"
+              src={mapSrc}
               width="100%"
               height="240"
               loading="lazy"
