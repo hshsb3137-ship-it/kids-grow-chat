@@ -1,4 +1,4 @@
-export const DEFAULT_WHATSAPP_NUMBER = "918975583203";
+export const DEFAULT_WHATSAPP_NUMBER = "918975583202";
 
 let cachedNumber = DEFAULT_WHATSAPP_NUMBER;
 export function setWhatsappNumber(n: string) {
