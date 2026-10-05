@@ -15,7 +15,7 @@ export function whatsappOrderUrl(productName: string, quantity = 1) {
   return `https://wa.me/${cachedNumber}?text=${text}`;
 }
 
-export function whatsappContactUrl(message = "Hello! I'd like to know more about Infinity Learning Center.") {
+export function whatsappContactUrl(message = "") {
   return `https://wa.me/${cachedNumber}?text=${encodeURIComponent(message)}`;
 }
 
@@ -26,7 +26,7 @@ export function whatsappCartUrl(items: CartLine[]) {
   const lines = items.map((i, idx) => `${idx + 1}. ${i.name} × ${i.quantity}`).join("\n");
   const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
   const text = encodeURIComponent(
-    `Hello Infinity Learning Center,\n\nI want to order:\n${lines}\n\nTotal: ₹${total}\n\nCustomer Name:\nPhone Number:\nAddress:\n\nPlease confirm availability.`,
+    `Hello Infinity Learning Center,\n\nI want to order:\n${lines}\n\nTotal: ₹${total}\n\nPlease confirm availability.`,
   );
   return `https://wa.me/${cachedNumber}?text=${text}`;
 }
