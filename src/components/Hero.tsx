@@ -38,7 +38,7 @@ export function Hero() {
           </span>
           <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
             {hero.heading.split(" ").slice(0, -2).join(" ")} <br />
-            <span className="text-gradient">{hero.heading.split(" ").slice(-2).join(" ")}</span>
+            <span className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">{hero.heading.split(" ").slice(-2).join(" ")}</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg md:mx-0">
             {hero.subtitle}
